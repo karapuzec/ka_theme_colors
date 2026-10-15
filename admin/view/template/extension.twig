@@ -1,0 +1,36 @@
+{#
+    $Project: Ka Theme Colors $
+    Settings page: colors grouped by page blocks. Each row: color picker + hex input + reset button + description.
+#}
+{% extends '@ka_common/pages/settings.twig' %}
+
+{% block settings_page_contents %}
+	{# settings_contents of the parent template is inside an embed and cannot be overridden from here, so the card is rebuilt #}
+	{% embed '@ka_common/card.twig' with {'header': t('Extension Settings'), icon:'fa-palette'} %}
+		{% block contents %}
+<form action="{{ action_save }}" method="post" id="form-settings" data-oc-toggle="ajax">
+	<p class="text-muted"><i class="fa-solid fa-circle-info"></i> {{ t('txt_save_notice') }}</p>
+	{% for group, codes in color_groups %}
+		<h5 class="mt-4 mb-3 border-bottom pb-2">{{ t('txt_group_' ~ group) }}</h5>
+		{% for code in codes %}
+			{% set f = fields[code] %}
+			<div class="row mb-3 ka-theme-color" data-ka-id="field-{{ code }}">
+				<label class="col-sm-3 col-form-label" for="input-{{ code }}">{{ t('txt_title_' ~ code) }}</label>
+				<div class="col-sm-9">
+					<div class="input-group" style="max-width: 330px;">
+						<input type="color" class="form-control form-control-color ka-color-picker" value="{{ f.value ?: auto_values[code]|default('#000000') }}" data-target="input-{{ code }}" title="{{ t('txt_title_' ~ code) }}" style="max-width: 60px;" />
+						<input type="text" name="{{ code }}" id="input-{{ code }}" value="{{ f.value }}" maxlength="7"
+							class="form-control font-monospace ka-color-hex" {% if f.default_value == '' %}placeholder="{{ t('txt_auto') }}"{% endif %} />
+						<button type="button" class="btn btn-outline-secondary ka-color-reset" data-target="input-{{ code }}" data-default="{{ f.default_value }}" data-auto="{{ auto_values[code] }}"
+							data-bs-toggle="tooltip" title="{{ t('txt_reset') }}: {{ f.default_value ?: t('txt_auto') }}"><i class="fa-solid fa-rotate-left"></i></button>
+					</div>
+					<div id="error-{{ code|replace({'_': '-'}) }}" class="invalid-feedback"></div>
+					<div class="form-text">{{ t('txt_tooltip_' ~ code) }}</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endfor %}
+</form>
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
