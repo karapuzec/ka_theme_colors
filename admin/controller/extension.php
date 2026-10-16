@@ -15,8 +15,6 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 
 	protected $ext_code = 'ka_theme_colors';
 
-	const EVENT_CODE = 'ka_theme_colors';
-
 	/**
 	 Fields for ControllerSettings: one field per color, default values are the OC4 default theme colors.
 	*/
@@ -129,25 +127,6 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 			return false;
 		}
 
-		// Ka Extensions registers modules as (type 'ka_extensions', extension 'ka_extensions', code <module>).
-		// The OC4 storefront registers controller namespaces by the `extension` column only, so the catalog
-		// controllers of the module would not be found. We register the row with extension = module code first;
-		// the following model_setting_extension->install() call from the Ka Extensions page sees the code
-		// and does not insert a duplicate.
-		$this->load->model('setting/extension');
-		$this->model_setting_extension->install('ka_extensions', $this->ext_code, $this->ext_code);
-
-		$this->load->model('setting/event');
-		$this->model_setting_event->deleteEventByCode(static::EVENT_CODE);
-		$this->model_setting_event->addEvent(array(
-			'code'        => static::EVENT_CODE,
-			'description' => 'Ka Theme Colors: adds the custom color CSS to storefront pages',
-			'trigger'     => 'catalog/view/common/header/after',
-			'action'      => 'extension/ka_theme_colors/event.header',
-			'status'      => 1,
-			'sort_order'  => 0,
-		));
-
 		$this->rebuildCache();
 
 		return true;
@@ -160,8 +139,6 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 			return false;
 		}
 
-		$this->load->model('setting/event');
-		$this->model_setting_event->deleteEventByCode(static::EVENT_CODE);
 		$this->cache->delete(Colors::CACHE_KEY);
 
 		return true;
