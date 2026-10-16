@@ -1,0 +1,13 @@
+<kapatch version="1.0">
+	<changes>
+		<operation type="replace">
+			<search><![CDATA[</body>]]></search>
+			<text><![CDATA[{% if ka_theme_custom_js %}
+<script id="ka-theme-custom-js">
+{{ ka_theme_custom_js }}
+</script>
+{% endif %}
+</body>]]></text>
+		</operation>
+	</changes>
+</kapatch>

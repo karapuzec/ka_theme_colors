@@ -41,3 +41,12 @@ $_['txt_auto']        = 'авто';
 $_['txt_default']     = 'По умолчанию';
 $_['txt_save_notice'] = 'Изменения применяются к магазину только после нажатия кнопки «Сохранить».';
 $_['error_color']     = 'Неверный цвет в поле «%s». Используйте формат #rrggbb.';
+
+$_['txt_tab_colors']     = 'Цвета';
+$_['txt_tab_custom_css'] = 'Свой CSS';
+$_['txt_tab_custom_js']  = 'Свой Javascript';
+
+$_['txt_title_ka_theme_colors_custom_css']   = 'Свой CSS';
+$_['txt_tooltip_ka_theme_colors_custom_css'] = 'CSS-код без тега &lt;style&gt;. Добавляется в &lt;head&gt; каждой страницы магазина после цветов темы.';
+$_['txt_title_ka_theme_colors_custom_js']    = 'Свой Javascript';
+$_['txt_tooltip_ka_theme_colors_custom_js']  = 'Javascript-код без тега &lt;script&gt;. Добавляется перед &lt;/body&gt; каждой страницы магазина, после загрузки jQuery и Bootstrap, так что можно использовать $.';

@@ -2,15 +2,16 @@
 /*
 	$Project: Ka Theme Colors $
 	$Author: karapuz team <support@ka-station.com> $
-	$Version: 1.0.0.0 $
+	$Version: 1.1.0.0 $
 
-	Adds the color CSS of the module to the header template data. The CSS is printed before </head>
+	Adds the color CSS and the custom CSS of the module to the header template data. The CSS is printed before </head>
 	by the kapatch file kamod/catalog/view/template/common/header.twig.xml.
 */
 
 namespace Opencart\Catalog\Controller\Extension\KaThemeColors\Common;
 
 use \Opencart\Extension\KaThemeColors\System\Colors;
+use \Opencart\Extension\KaThemeColors\System\CustomCode;
 
 class Header extends \Opencart\Catalog\Controller\Common\Header {
 
@@ -26,6 +27,7 @@ class Header extends \Opencart\Catalog\Controller\Common\Header {
 		$template = $this->getRenderTemplate();
 
 		$data['ka_theme_colors_style'] = $this->getColorsCss();
+		$data['ka_theme_custom_css']   = CustomCode::prepare($this->config->get(CustomCode::CSS), 'css');
 
 		return $this->load->view($template, $data);
 	}

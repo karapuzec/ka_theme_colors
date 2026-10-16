@@ -6,6 +6,11 @@
 <style id="ka-theme-colors">
 {{ ka_theme_colors_style }}</style>
 {% endif %}
+{% if ka_theme_custom_css %}
+<style id="ka-theme-custom-css">
+{{ ka_theme_custom_css }}
+</style>
+{% endif %}
 </head>]]></text>
 		</operation>
 	</changes>

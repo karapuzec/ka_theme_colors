@@ -41,3 +41,12 @@ $_['txt_auto']        = 'auto';
 $_['txt_default']     = 'Default';
 $_['txt_save_notice'] = 'Changes are applied to the store only after you press the Save button.';
 $_['error_color']     = 'Wrong color value in the field "%s". Use the #rrggbb format.';
+
+$_['txt_tab_colors']     = 'Colors';
+$_['txt_tab_custom_css'] = 'Custom CSS';
+$_['txt_tab_custom_js']  = 'Custom Javascript';
+
+$_['txt_title_ka_theme_colors_custom_css']   = 'Custom CSS';
+$_['txt_tooltip_ka_theme_colors_custom_css'] = 'CSS code without the &lt;style&gt; tag. It is added to the &lt;head&gt; of every storefront page after the theme colors.';
+$_['txt_title_ka_theme_colors_custom_js']    = 'Custom Javascript';
+$_['txt_tooltip_ka_theme_colors_custom_js']  = 'Javascript code without the &lt;script&gt; tag. It is added before &lt;/body&gt; of every storefront page, after jQuery and Bootstrap are loaded, so $ can be used.';
