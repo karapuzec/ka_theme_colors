@@ -1,0 +1,12 @@
+<kapatch version="1.0">
+	<changes>
+		<operation type="replace">
+			<search><![CDATA[</head>]]></search>
+			<text><![CDATA[{% if ka_theme_colors_style %}
+<style id="ka-theme-colors">
+{{ ka_theme_colors_style }}</style>
+{% endif %}
+</head>]]></text>
+		</operation>
+	</changes>
+</kapatch>

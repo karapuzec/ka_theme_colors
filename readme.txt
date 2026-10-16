@@ -7,6 +7,9 @@ Install: upload ka_theme_colors.ocmod.zip on Extensions > Installer, then go to 
 and press Install next to 'Ka Theme Colors'. Press Edit to open the color settings.
 
 How it works: on save the module generates a CSS block from the settings and stores it in the OpenCart cache.
-The event catalog/view/common/header/after reads the block from the cache (regenerates it from the database
-if the cache is empty) and inserts it as <style id="ka-theme-colors"> right before </head>, after stylesheet.css.
+The module does not use OpenCart events, it works through kamod (Ka Extensions):
+- kamod/catalog/controller/common/header.php overrides the common/header controller and passes the block
+  from the cache (regenerated from the database if the cache is empty) to the template as ka_theme_colors_style;
+- kamod/catalog/view/template/common/header.twig.xml (kapatch) prints it as <style id="ka-theme-colors">
+  right before </head>, after stylesheet.css.
 Only the default theme is supported.
