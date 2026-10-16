@@ -127,14 +127,6 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 			return false;
 		}
 
-		// Ka Extensions registers modules as (type 'ka_extensions', extension 'ka_extensions', code <module>).
-		// The OC4 storefront registers controller namespaces by the `extension` column only, so the catalog
-		// controllers of the module would not be found. We register the row with extension = module code first;
-		// the following model_setting_extension->install() call from the Ka Extensions page sees the code
-		// and does not insert a duplicate.
-		$this->load->model('setting/extension');
-		$this->model_setting_extension->install('ka_extensions', $this->ext_code, $this->ext_code);
-
 		$this->rebuildCache();
 
 		return true;
