@@ -36,6 +36,11 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 
 
 	public function index() {
+	
+		$this->disableRender();
+		parent::index();
+		$this->enableRender();
+	
 		$groups = array();
 		foreach (Colors::getGroups() as $group => $colors) {
 			$groups[$group] = array_map(function($c) { return Colors::CODE . '_' . $c; }, array_keys($colors));
@@ -50,18 +55,7 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 
 		$this->document->addScript('../extension/ka_theme_colors/admin/view/javascript/ka_theme_colors.js');
 
-		parent::index();
-	}
-
-
-	/**
-	 Replaces the standard Ka settings template with the module template (it extends the standard one).
-	*/
-	protected function showPage($template = '', $data = array()) {
-		if ($template == 'extension/ka_extensions/common/pages/settings') {
-			$template = 'extension/ka_theme_colors/extension';
-		}
-		parent::showPage($template, $data);
+		$this->showPage('extension/ka_theme_colors/extension');
 	}
 
 
