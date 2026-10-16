@@ -2,7 +2,7 @@
 /*
 	$Project: Ka Theme Colors $
 	$Author: karapuz team <support@ka-station.com> $
-	$Version: 1.0.0.0 $
+	$Version: 1.1.0.0 $
 
 	Color definitions and CSS generator shared by the admin page and the storefront.
 */

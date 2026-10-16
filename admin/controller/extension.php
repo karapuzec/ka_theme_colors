@@ -2,7 +2,7 @@
 /*
 	$Project: Ka Theme Colors $
 	$Author: karapuz team <support@ka-station.com> $
-	$Version: 1.0.0.0 $
+	$Version: 1.1.0.0 $
 
 	Settings page of the module. It is opened from the 'Ka Extensions' page.
 */
@@ -10,13 +10,17 @@
 namespace Opencart\Admin\Controller\Extension\KaThemeColors;
 
 use \Opencart\Extension\KaThemeColors\System\Colors;
+use \Opencart\Extension\KaThemeColors\System\CustomCode;
 
 class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettings {
 
 	protected $ext_code = 'ka_theme_colors';
 
 	/**
-	 Fields for ControllerSettings: one field per color, default values are the OC4 default theme colors.
+	 Fields for ControllerSettings: one field per color (default values are the OC4 default theme colors)
+	 and textareas for the custom CSS and JavaScript.
+
+	 @return array
 	*/
 	protected function getFields() {
 		$fields = array();
@@ -30,6 +34,14 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 					'default_value' => $default,
 				);
 			}
+		}
+		foreach (CustomCode::getFields() as $code => $type) {
+			$fields[$code] = array(
+				'code'          => $code,
+				'type'          => 'textarea',
+				'group'         => 'custom',
+				'default_value' => '',
+			);
 		}
 		return $fields;
 	}
@@ -66,6 +78,10 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 		}
 
 		foreach ($this->fields as $code => $f) {
+			if ($f['type'] != 'color') {
+				continue;
+			}
+
 			$value = isset($this->request->post[$code]) ? trim($this->request->post[$code]) : '';
 
 			if ($value === '' && $f['default_value'] === '') {
@@ -85,7 +101,7 @@ class Extension extends \Opencart\Extension\KaExtensions\System\ControllerSettin
 
 		if (!empty($this->request->post) && is_array($this->request->post)) {
 			foreach ($this->fields as $code => $f) {
-				if (isset($this->request->post[$code])) {
+				if ($f['type'] == 'color' && isset($this->request->post[$code])) {
 					$normalized = Colors::normalize($this->request->post[$code]);
 					if ($normalized !== '') {
 						$this->request->post[$code] = $normalized;
